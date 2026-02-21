@@ -150,34 +150,51 @@
             const rows = data.split(/\r?\n/).filter(row => row.trim() !== "").slice(1);
             galleryGrid.innerHTML = '';
             newsGrid.innerHTML = '';
+
             rows.forEach((row) => {
                 const cols = row.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/);
                 if (cols.length >= 3) {
                     const judul = cols[0].replace(/"/g, "").trim();
                     const kategori = (cols[1] || 'sosial').replace(/"/g, "").trim().toLowerCase();
-                    let linkFoto = (cols[2] || '').replace(/"/g, "").trim().replace(/\s/g, '');
+                    let linkData = (cols[2] || '').replace(/"/g, "").trim().replace(/\s/g, '');
                     const keterangan = (cols[3] || '').replace(/"/g, "").trim();
                     const tanggal = (cols[4] || 'Baru').replace(/"/g, "").trim();
-                    const finalImg = linkFoto !== "" ? linkFoto : 'https://via.placeholder.com/600x400?text=Foto+Belum+Ada';
 
-                    const galleryHtml = `
-                        <div class="gallery-item ${kategori} group relative overflow-hidden rounded-[2rem] h-80 shadow-xl block">
-                            <img src="${finalImg}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.src='https://via.placeholder.com/600x400?text=Format+Link+Salah'">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-end p-8 text-center">
-                                <span class="text-yellow-400 font-bold text-xs mb-2 tracking-widest uppercase">${kategori}</span>
-                                <p class="text-white font-bold text-lg leading-tight uppercase">${judul}</p>
-                            </div>
-                        </div>`;
-                    galleryGrid.insertAdjacentHTML('beforeend', galleryHtml);
+                    let mediaHtml = '';
+                    let thumbImg = '';
 
+                    // LOGIKA: JIKA KATEGORI ADALAH VIDEO
+                    if (kategori === 'video') {
+                        thumbImg = `https://img.youtube.com/vi/${linkData}/mqdefault.jpg`;
+                        mediaHtml = `
+                            <div class="gallery-item video group relative overflow-hidden rounded-[2rem] h-80 shadow-xl block bg-black">
+                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/${linkData}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <div class="absolute top-4 left-4 bg-red-600 text-white text-[10px] px-3 py-1 rounded-full font-bold uppercase z-10">YouTube Video</div>
+                            </div>`;
+                    } else {
+                        // JIKA KATEGORI ADALAH FOTO (SOSIAL/KAJIAN)
+                        thumbImg = linkData !== "" ? linkData : 'https://via.placeholder.com/600x400?text=Foto+Belum+Ada';
+                        mediaHtml = `
+                            <div class="gallery-item ${kategori} group relative overflow-hidden rounded-[2rem] h-80 shadow-xl block">
+                                <img src="${thumbImg}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.src='https://via.placeholder.com/600x400?text=Format+Link+Salah'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-end p-8 text-center">
+                                    <span class="text-yellow-400 font-bold text-xs mb-2 tracking-widest uppercase">${kategori}</span>
+                                    <p class="text-white font-bold text-lg leading-tight uppercase">${judul}</p>
+                                </div>
+                            </div>`;
+                    }
+
+                    galleryGrid.insertAdjacentHTML('beforeend', mediaHtml);
+
+                    // Bagian Berita tetap menampilkan gambar (Thumbnail jika video)
                     const newsHtml = `
                         <article class="bg-gray-50 rounded-[2rem] overflow-hidden shadow-md hover:shadow-2xl transition-all border border-gray-100">
-                            <img src="${finalImg}" class="w-full h-52 object-cover" onerror="this.src='https://via.placeholder.com/600x400?text=Format+Link+Salah'">
+                            <img src="${thumbImg}" class="w-full h-52 object-cover" onerror="this.src='https://via.placeholder.com/600x400?text=Format+Link+Salah'">
                             <div class="p-8">
                                 <span class="text-xs font-bold text-green-700 uppercase">${tanggal}</span>
                                 <h3 class="text-xl font-bold my-3 text-gray-800 uppercase leading-tight">${judul}</h3>
                                 <p class="text-gray-500 text-sm mb-6">${keterangan.substring(0, 85)}...</p>
-                                <button onclick="showDetail('${judul.replace(/'/g, "\\'")}', '${finalImg}', '${keterangan.replace(/'/g, "\\'")}', '${tanggal}')" class="text-green-700 font-bold hover:text-yellow-600 transition text-xs uppercase tracking-widest">BACA DETAIL <i class="fas fa-arrow-right ml-1"></i></button>
+                                <button onclick="showDetail('${judul.replace(/'/g, "\\'")}', '${thumbImg}', '${keterangan.replace(/'/g, "\\'")}', '${tanggal}')" class="text-green-700 font-bold hover:text-yellow-600 transition text-xs uppercase tracking-widest">BACA DETAIL <i class="fas fa-arrow-right ml-1"></i></button>
                             </div>
                         </article>`;
                     newsGrid.insertAdjacentHTML('beforeend', newsHtml);
@@ -186,6 +203,7 @@
         } catch (error) { console.log(error); }
     }
 
+    // Fungsi lainnya (Filter, Modal, WA) tetap sama seperti sebelumnya...
     function tampilkanKegiatan(kategori, btn) {
         document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('bg-green-800', 'text-white', 'shadow-lg'); b.classList.add('bg-white', 'text-green-800'); });
         btn.classList.add('bg-green-800', 'text-white', 'shadow-lg'); btn.classList.remove('bg-white', 'text-green-800');
@@ -200,15 +218,12 @@
 
     function closeNews() { document.getElementById('newsModal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
 
-    // FUNGSI SEND WHATSAPP DENGAN DUA ADMIN
     function sendToWhatsApp() {
         const n = document.getElementById('nama').value;
         const w = document.getElementById('whatsapp_user').value;
         const k = document.getElementById('kecamatan').value;
         const adminTujuan = document.querySelector('input[name="admin_tujuan"]:checked').value;
-        
         if(!n || !w || !k) { alert('Harap lengkapi Nama, WA, dan Kecamatan!'); return; }
-        
         const pesan = `*DAFTAR PWI LASKAR SABILLILAH*%0A%0A*Nama:* ${n}%0A*WhatsApp:* ${w}%0A*Kecamatan:* ${k}%0A%0A_Mohon diproses untuk pendaftaran anggota baru._`;
         window.open(`https://wa.me/${adminTujuan}?text=${pesan}`, '_blank');
     }
@@ -217,3 +232,4 @@
 </script>
 </body>
 </html>
+
