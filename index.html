@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
@@ -10,7 +11,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
         body { font-family: 'Poppins', sans-serif; overflow-x: hidden; }
         .hero-gradient { background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1590073844006-3a44a763ff84?auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; }
-        .gallery-item { transition: all 0.5s ease; }
+        .gallery-item { transition: all 0.4s ease-in-out; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -44,37 +45,21 @@
         </div>
     </header>
 
-    <section class="py-16 container mx-auto px-6 grid md:grid-cols-3 gap-8 -mt-20 relative z-10">
-        <div class="bg-white p-8 rounded-[2rem] shadow-xl border-b-4 border-green-700">
-            <i class="fas fa-shield-halved text-3xl text-green-700 mb-4"></i>
-            <h3 class="font-bold text-lg mb-2">Penjagaan Aqidah</h3>
-            <p class="text-gray-500 text-sm">Mengawal ajaran Ahlussunnah Wal Jamaah sesuai tuntunan Walisongo.</p>
-        </div>
-        <div class="bg-white p-8 rounded-[2rem] shadow-xl border-b-4 border-yellow-500">
-            <i class="fas fa-hand-holding-heart text-3xl text-yellow-500 mb-4"></i>
-            <h3 class="font-bold text-lg mb-2">Aksi Kemanusiaan</h3>
-            <p class="text-gray-500 text-sm">Aktif membantu masyarakat Pekalongan dalam kegiatan sosial dan bencana.</p>
-        </div>
-        <div class="bg-white p-8 rounded-[2rem] shadow-xl border-b-4 border-green-700">
-            <i class="fas fa-users-line text-3xl text-green-700 mb-4"></i>
-            <h3 class="font-bold text-lg mb-2">Persatuan Umat</h3>
-            <p class="text-gray-500 text-sm">Membangun sinergi antar seluruh elemen masyarakat Pekalongan.</p>
-        </div>
-    </section>
-
     <section id="galeri" class="py-24 bg-gray-50">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-extrabold text-green-900 uppercase tracking-tight">Galeri Kegiatan</h2>
                 <div class="h-1.5 w-24 bg-yellow-500 mx-auto mt-4 rounded-full"></div>
-                <div class="flex justify-center gap-3 mt-10 flex-wrap">
-                    <button onclick="filterGallery('semua')" class="filter-btn active bg-green-800 text-white px-8 py-2.5 rounded-full text-xs font-bold uppercase transition shadow-lg">Semua</button>
-                    <button onclick="filterGallery('sosial')" class="filter-btn bg-white text-gray-500 px-8 py-2.5 rounded-full text-xs font-bold uppercase transition border border-gray-200">Sosial</button>
-                    <button onclick="filterGallery('kajian')" class="filter-btn bg-white text-gray-500 px-8 py-2.5 rounded-full text-xs font-bold uppercase transition border border-gray-200">Kajian</button>
+                
+                <div class="flex justify-center gap-4 mt-10 flex-wrap">
+                    <button onclick="tampilkanKegiatan('semua', this)" class="filter-btn active bg-green-800 text-white px-8 py-3 rounded-xl text-xs font-bold uppercase transition shadow-lg border-2 border-green-800">Semua</button>
+                    <button onclick="tampilkanKegiatan('sosial', this)" class="filter-btn bg-white text-green-800 px-8 py-3 rounded-xl text-xs font-bold uppercase transition border-2 border-green-800 hover:bg-green-50">Sosial</button>
+                    <button onclick="tampilkanKegiatan('kajian', this)" class="filter-btn bg-white text-green-800 px-8 py-3 rounded-xl text-xs font-bold uppercase transition border-2 border-green-800 hover:bg-green-50">Kajian</button>
                 </div>
             </div>
+            
             <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <p class="text-center col-span-full text-gray-400">Sedang memuat data...</p>
+                <p class="text-center col-span-full text-gray-400">Memuat koleksi kegiatan...</p>
             </div>
         </div>
     </section>
@@ -82,8 +67,7 @@
     <section id="berita" class="py-24 bg-white px-6">
         <div class="container mx-auto">
             <h2 class="text-3xl font-bold text-green-900 mb-12 border-l-8 border-yellow-500 pl-4 uppercase">Warta Laskar</h2>
-            <div id="newsGrid" class="grid md:grid-cols-3 gap-8">
-                </div>
+            <div id="newsGrid" class="grid md:grid-cols-3 gap-8"></div>
         </div>
     </section>
 
@@ -96,27 +80,19 @@
                         <div class="space-y-6">
                             <div class="flex items-start space-x-4">
                                 <i class="fas fa-map-marker-alt text-yellow-500 mt-1"></i>
-                                <p class="text-xs text-green-100 leading-relaxed font-light">Jl. Ky Warmidi Gg. Ky Mutashil No.3 Kel. Sapuro, Kota Pekalongan, Jawa Tengah</p>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <i class="fas fa-phone-alt text-yellow-500"></i>
-                                <p class="text-sm text-green-100">+62 858-4274-2728</p>
+                                <p class="text-xs text-green-100 leading-relaxed font-light font-bold uppercase tracking-widest">Jl. Ky Warmidi Gg. Ky Mutashil No.3 Sapuro, Pekalongan</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="md:col-span-3 p-10 md:p-14 bg-white">
+                <div class="md:col-span-3 p-10 md:p-14 bg-white text-center">
                     <form id="regForm" class="space-y-5">
-                        <input type="text" id="nama" placeholder="Nama Lengkap" class="w-full px-6 py-4 rounded-2xl bg-gray-50 border border-gray-200 outline-none focus:border-green-600 transition-all">
-                        <input type="tel" id="whatsapp_user" placeholder="Nomor WhatsApp" class="w-full px-6 py-4 rounded-2xl bg-gray-50 border border-gray-200 outline-none focus:border-green-600 transition-all">
+                        <input type="text" id="nama" placeholder="Nama Lengkap" class="w-full px-6 py-4 rounded-2xl bg-gray-50 border border-gray-200 outline-none focus:border-green-600">
+                        <input type="tel" id="whatsapp_user" placeholder="Nomor WhatsApp" class="w-full px-6 py-4 rounded-2xl bg-gray-50 border border-gray-200 outline-none focus:border-green-600">
                         <select id="kecamatan" class="w-full px-6 py-4 rounded-2xl bg-gray-50 border border-gray-200 outline-none">
                             <option value="">Pilih Kecamatan Domisili</option>
-                            <option>Pekalongan Barat</option>
-                            <option>Pekalongan Timur</option>
-                            <option>Pekalongan Selatan</option>
-                            <option>Pekalongan Utara</option>
+                            <option>Pekalongan Barat</option><option>Pekalongan Timur</option><option>Pekalongan Selatan</option><option>Pekalongan Utara</option>
                         </select>
-                        <textarea id="alasan" placeholder="Motivasi Anda bergabung?" class="w-full px-6 py-4 rounded-2xl bg-gray-50 border border-gray-200 outline-none h-32 resize-none"></textarea>
                         <button type="button" onclick="sendToWhatsApp()" class="w-full bg-green-800 text-white py-5 rounded-2xl font-bold shadow-xl hover:bg-yellow-500 hover:text-green-900 transition-all uppercase tracking-widest">
                             <i class="fab fa-whatsapp mr-3 text-2xl"></i> Kirim Pendaftaran
                         </button>
@@ -126,9 +102,9 @@
         </div>
     </section>
 
-    <footer class="bg-green-950 text-white py-12 px-6 text-center border-t border-yellow-500/20">
-        <h2 class="font-extrabold text-lg text-yellow-500 uppercase tracking-widest">PWI LASKAR SABILLILAH KOTA PEKALONGAN</h2>
-        <p class="mt-4 text-[10px] text-gray-500 uppercase tracking-widest">&copy; 2026 PERJUANGAN WALISONGO INDONESIA • KOTA PEKALONGAN</p>
+    <footer class="bg-green-950 text-white py-12 px-6 text-center border-t border-yellow-500/20 uppercase tracking-widest">
+        <h2 class="font-extrabold text-lg text-yellow-500">PWI LASKAR SABILLILAH KOTA PEKALONGAN</h2>
+        <p class="mt-4 text-[10px] text-gray-500">&copy; 2026 PERJUANGAN WALISONGO INDONESIA</p>
     </footer>
 
     <div id="newsModal" class="fixed inset-0 z-[100] hidden bg-black/80 flex items-center justify-center p-4 backdrop-blur-md">
@@ -141,7 +117,6 @@
     </div>
 
 <script>
-    // MASUKKAN LINK CSV ANDA DI SINI
     const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSAykbue8s0LU8wbXw4UsLFbJWejHSfEiLu5iMNTq-L76g8Jo9iK4gcWeMfbQ2ET1QwWCKwq1GB2ygA/pub?gid=0&single=true&output=csv';
 
     async function fetchDataFromSheets() {
@@ -149,26 +124,15 @@
         const newsGrid = document.getElementById('newsGrid');
 
         try {
-            // Kita coba ambil datanya
             const response = await fetch(csvUrl);
-            if (!response.ok) throw new Error("Link salah");
-            
             const data = await response.text();
-            
-            // Pecah baris dan bersihkan baris kosong
             const rows = data.split(/\r?\n/).filter(row => row.trim() !== "").slice(1);
-
-            if (rows.length === 0) {
-                galleryGrid.innerHTML = '<p class="col-span-full text-center py-10">Data di Google Sheets masih kosong. Silakan isi baris ke-2.</p>';
-                return;
-            }
 
             galleryGrid.innerHTML = '';
             newsGrid.innerHTML = '';
 
             rows.forEach((row) => {
                 const cols = row.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/);
-                
                 if (cols.length >= 3) {
                     const judul = cols[0].replace(/"/g, "").trim();
                     const kategori = (cols[1] || 'sosial').replace(/"/g, "").trim().toLowerCase();
@@ -176,59 +140,72 @@
                     const keterangan = (cols[3] || '').replace(/"/g, "").trim();
                     const tanggal = (cols[4] || 'Baru').replace(/"/g, "").trim();
 
-                    // Template Galeri
+                    // HTML Galeri
                     const galleryHtml = `
-                        <div class="gallery-item ${kategori} group relative overflow-hidden rounded-[2rem] h-80 shadow-xl">
-                            <img src="${linkFoto}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.src='https://via.placeholder.com/600x400?text=Foto+Gagal+Load'">
+                        <div class="gallery-item ${kategori} group relative overflow-hidden rounded-[2rem] h-80 shadow-xl block">
+                            <img src="${linkFoto}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.src='https://via.placeholder.com/600x400?text=Gagal+Load'">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-end p-8 text-center">
                                 <span class="text-yellow-400 font-bold text-xs mb-2 tracking-widest uppercase">${kategori}</span>
-                                <p class="text-white font-bold text-lg">${judul}</p>
+                                <p class="text-white font-bold text-lg leading-tight uppercase">${judul}</p>
                             </div>
                         </div>`;
                     galleryGrid.insertAdjacentHTML('beforeend', galleryHtml);
 
-                    // Template Berita
+                    // HTML Berita
                     const newsHtml = `
-                        <article class="bg-gray-50 rounded-[2rem] overflow-hidden shadow-md hover:shadow-2xl transition-all">
-                            <img src="${linkFoto}" class="w-full h-52 object-cover" onerror="this.src='https://via.placeholder.com/600x400?text=Foto+Gagal+Load'">
+                        <article class="bg-gray-50 rounded-[2rem] overflow-hidden shadow-md hover:shadow-2xl transition-all border border-gray-100">
+                            <img src="${linkFoto}" class="w-full h-52 object-cover" onerror="this.src='https://via.placeholder.com/600x400?text=Gagal+Load'">
                             <div class="p-8">
-                                <span class="text-xs font-bold text-green-700 uppercase">${tanggal}</span>
-                                <h3 class="text-xl font-bold my-3 text-gray-800 uppercase">${judul}</h3>
-                                <p class="text-gray-500 text-sm mb-6">${keterangan.substring(0, 80)}...</p>
-                                <button onclick="showDetail('${judul}', '${linkFoto}', '${keterangan.replace(/'/g, "\\'")}', '${tanggal}')" class="text-green-700 font-bold hover:text-yellow-600 transition text-sm">BACA DETAIL <i class="fas fa-arrow-right ml-1"></i></button>
+                                <span class="text-xs font-bold text-green-700 uppercase tracking-tighter">${tanggal}</span>
+                                <h3 class="text-xl font-bold my-3 text-gray-800 uppercase leading-tight">${judul}</h3>
+                                <p class="text-gray-500 text-sm mb-6">${keterangan.substring(0, 85)}...</p>
+                                <button onclick="showDetail('${judul.replace(/'/g, "\\'")}', '${linkFoto}', '${keterangan.replace(/'/g, "\\'")}', '${tanggal}')" class="text-green-700 font-bold hover:text-yellow-600 transition text-xs uppercase tracking-widest">BACA DETAIL <i class="fas fa-arrow-right ml-1"></i></button>
                             </div>
                         </article>`;
                     newsGrid.insertAdjacentHTML('beforeend', newsHtml);
                 }
             });
         } catch (error) {
-            console.error(error);
-            galleryGrid.innerHTML = '<p class="col-span-full text-center text-red-500 py-10">Gagal terhubung! Periksa kembali link CSV di kode Anda.</p>';
+            galleryGrid.innerHTML = '<p class="col-span-full text-center text-red-500">Gagal memuat data.</p>';
         }
     }
 
-    // Fungsi modal dan filter tetap sama
+    // FUNGSI FILTER YANG BARU (Update tombol aktif & filter gambar)
+    function tampilkanKegiatan(kategori, btn) {
+        // Update warna tombol
+        document.querySelectorAll('.filter-btn').forEach(b => {
+            b.classList.remove('bg-green-800', 'text-white', 'shadow-lg');
+            b.classList.add('bg-white', 'text-green-800');
+        });
+        btn.classList.add('bg-green-800', 'text-white', 'shadow-lg');
+        btn.classList.remove('bg-white', 'text-green-800');
+
+        // Filter foto-foto
+        const items = document.querySelectorAll('.gallery-item');
+        items.forEach(item => {
+            if (kategori === 'semua' || item.classList.contains(kategori)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
     function showDetail(t, i, d, dt) {
-        document.getElementById('modalContent').innerHTML = `<img src="${i}" class="w-full h-72 object-cover"><div class="p-10"><span class="bg-green-100 text-green-700 px-4 py-1 rounded-full text-xs font-bold">${dt}</span><h2 class="text-3xl font-extrabold my-6 text-green-900">${t}</h2><p class="text-gray-600 leading-relaxed text-lg font-light">${d}</p></div>`;
+        document.getElementById('modalContent').innerHTML = `<img src="${i}" class="w-full h-72 object-cover"><div class="p-10"><span class="bg-green-100 text-green-700 px-4 py-1 rounded-full text-xs font-bold uppercase">${dt}</span><h2 class="text-3xl font-extrabold my-6 text-green-900 uppercase leading-tight">${t}</h2><p class="text-gray-600 leading-relaxed text-lg font-light">${d}</p></div>`;
         document.getElementById('newsModal').classList.remove('hidden');
         document.body.style.overflow = 'hidden';
     }
+
     function closeNews() { document.getElementById('newsModal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
-    function filterGallery(c) {
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            if (c === 'semua' || item.classList.contains(c)) item.style.display = 'block';
-            else item.style.display = 'none';
-        });
-    }
+
     function sendToWhatsApp() {
         const n = document.getElementById('nama').value; const w = document.getElementById('whatsapp_user').value; const k = document.getElementById('kecamatan').value;
         if(!n || !w || !k) { alert('Lengkapi data!'); return; }
         window.open(`https://wa.me/6285842742728?text=*DAFTAR PWI*%0ANama: ${n}%0AWA: ${w}%0AKec: ${k}`, '_blank');
     }
 
-    // PENTING: Jalankan fungsi!
     window.addEventListener('DOMContentLoaded', fetchDataFromSheets);
 </script>
 </body>
-
 </html>
