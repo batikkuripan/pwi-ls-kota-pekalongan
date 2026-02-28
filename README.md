@@ -1,1 +1,0 @@
-# pwi-ls-kota-pekalongan
